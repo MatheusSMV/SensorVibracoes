@@ -31,12 +31,14 @@ Vibracao_Total = sqrt((Vibracao_X² + Vibracao_Y²))
      - **Verde**: Vibração baixa (0 a 2,3 mm/s).
      - **Amarelo**: Vibração média (2,3 a 4,5 mm/s).
      - **Vermelho**: Vibração alta (4,5 a 7,1 mm/s).
+     - **Vermelho Piscando**: Vibração execessiva (Acima de 7,1 mm/s).
 
 5. **Controle do Buzzer**:
    - O buzzer emite alertas sonoros em caso de vibração excessiva (acima de 7,1 mm/s).
 
-6. **Reinício do Sistema**:
+6. **Reinício e Parada do Sistema**:
    - O sistema pode ser reiniciado manualmente pressionando o botão A.
+   - O sistema pode ser parado manualmente pressionando o botão B.
    - Mensagens de parada automática e manual são exibidas sem sobreposição.
 
 ## Estrutura do Código
@@ -106,5 +108,11 @@ O código está organizado da seguinte forma:
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
-## Licença
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
+## Códigos de Inspiração e de Fornecimento de Matéria Prima
+Professor Wilton Lacerda Git Hub --> [GitHubProfWilton](https://github.com/wiltonlacerda)
+Professor Ricardo Menezes Prates Git Hub --> [GitHub](https://github.com/rmprates84/pwm_duty_cycle.git)
+
+## Vídeo Apresentativo e Explicativo
+
+[VideoDeApresentacao](https://youtu.be/gytd6fKV-lQ)
+
