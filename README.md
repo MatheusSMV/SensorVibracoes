@@ -19,9 +19,7 @@ Este projeto implementa um sistema de monitoramento de vibração utilizando um 
 
 2. **Cálculo da Vibração**:
    - A vibração total é calculada usando a magnitude do vetor:
-$$
-\text{Vibracao\_Total} = \sqrt{(\text{Vibracao\_X}^2 + \text{Vibracao\_Y}^2)}
-$$
+Vibracao_Total = sqrt((Vibracao_X² + Vibracao_Y²))
 
 
 3. **Exibição no Display OLED**:
