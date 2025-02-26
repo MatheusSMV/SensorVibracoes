@@ -1,66 +1,110 @@
-# Projeto de Controle de LEDs e Display OLED
+# Sistema de Monitoramento de Vibração com Raspberry Pi Pico
 
-Este projeto utiliza o Raspberry Pi Pico para controlar uma matriz de LEDs WS2812, um display OLED SSD1306, e LEDs físicos RGB (verde e azul). Ele também permite interagir com o sistema por meio de botões para alterar o estado dos LEDs e visualizar informações no display OLED.
+Este projeto implementa um sistema de monitoramento de vibração utilizando um Raspberry Pi Pico. O sistema lê dados de um joystick analógico (potenciômetros) para simular vibrações, exibe os resultados em um display OLED e controla LEDs e um buzzer para fornecer feedback visual e sonoro.
 
 ## Componentes Utilizados
-
-- **Raspberry Pi Pico**
-- **Matriz de LEDs WS2812**
-- **Display OLED SSD1306 (I2C)**
-- **LEDs RGB (verde e azul)**
-- **Botões físicos (para controlar os LEDs)**
+- **Microcontrolador**: Raspberry Pi Pico
+- **Display**: OLED SSD1306 (comunicação I2C)
+- **Entrada Analógica**: Joystick com potenciômetros (eixos X e Y)
+- **Feedback Visual**: LEDs RGB (verde, amarelo, vermelho)
+- **Feedback Sonoro**: Buzzer
+- **Matriz de LEDs**: WS2812 (5x5)
+- **Botões**: Dois botões para controle do sistema (A e B)
 
 ## Funcionalidades
+1. **Leitura do Joystick**:
+   - Os potenciômetros do joystick são lidos via ADC para simular vibrações nos eixos X e Y.
+   - Os valores são convertidos em níveis de vibração.
 
-- **Controle de LEDs WS2812**: A matriz de LEDs pode exibir diferentes animações configuradas no código.
-- **Controle de LEDs físicos**: O código permite ligar ou desligar LEDs verde e azul através de botões.
-- **Display OLED SSD1306**: Exibe informações como o estado dos LEDs e a entrada de caracteres.
+2. **Cálculo da Vibração**:
+   - A vibração total é calculada usando a magnitude do vetor:
+     \[
+     \text{Vibracao\_Total} = \sqrt{(\text{Vibracao\_X}^2 + \text{Vibracao\_Y}^2)}
+     \]
 
-## Requisitos
+3. **Exibição no Display OLED**:
+   - O valor da vibração total é exibido no display OLED.
+   - Mensagens de status são mostradas em caso de parada automática ou manual.
 
-- Raspberry Pi Pico ou qualquer placa com suporte para o Raspberry Pi Pico.
-- Biblioteca `ssd1306` para controlar o display OLED.
-- Biblioteca `ws2812` para controlar a matriz de LEDs WS2812.
+4. **Controle de LEDs**:
+   - LEDs RGB indicam o nível de vibração:
+     - **Verde**: Vibração baixa (0 a 2,3 mm/s).
+     - **Amarelo**: Vibração média (2,3 a 4,5 mm/s).
+     - **Vermelho**: Vibração alta (4,5 a 7,1 mm/s).
 
-## Como Usar
+5. **Controle do Buzzer**:
+   - O buzzer emite alertas sonoros em caso de vibração excessiva (acima de 7,1 mm/s).
 
-1. **Componentes BitDogLab**:
-   - A matriz de LEDs WS2812 ao pino GPIO7.
-   - O display OLED via I2C (SDA no GPIO14, SCL no GPIO15).
-   - O LED verde ao pino GPIO11 e o LED azul ao pino GPIO12.
-   - Conecte os botões aos pinos GPIO5 e GPIO6.
+6. **Reinício do Sistema**:
+   - O sistema pode ser reiniciado manualmente pressionando o botão A.
+   - Mensagens de parada automática e manual são exibidas sem sobreposição.
 
-2. **Compilar e carregar o código**:
-   - Abra o código no seu ambiente de desenvolvimento preferido e compile-o.
-   - Carregue o código no Raspberry Pi Pico.
+## Estrutura do Código
+O código está organizado da seguinte forma:
+- **Inicialização**: Configuração dos periféricos (I2C, ADC, GPIO, PIO).
+- **Leitura e Cálculo**: Leitura dos potenciômetros e cálculo da vibração.
+- **Exibição**: Atualização do display OLED com os valores de vibração.
+- **Controle de LEDs e Buzzer**: Acionamento dos LEDs e buzzer com base no nível de vibração.
+- **Interrupções**: Tratamento de interrupções dos botões para controle do sistema.
 
-3. **Controle os LEDs**:
-   - Pressione o **Botão A** para alternar o LED verde.
-   - Pressione o **Botão B** para alternar o LED azul.
-   - O display OLED exibirá o estado atual dos LEDs e outros dados.
+## Como Executar o Código
 
-## Exemplo de Saída no Display OLED
+### Pré-requisitos
+1. **Hardware**:
+   - Raspberry Pi Pico.
+   - Display OLED SSD1306.
+   - Joystick analógico com potenciômetros.
+   - LEDs RGB, buzzer e botões.
+   - Matriz de LEDs WS2812 (opcional).
 
-O display OLED exibirá informações como:
-- O estado dos LEDs verde e azul.
-- A letra ou caractere recebido do teclado.
+2. **Software**:
+   - Ambiente de desenvolvimento configurado para Raspberry Pi Pico (por exemplo, Visual Studio Code com a extensão Pico SDK).
+   - Bibliotecas necessárias:
+     - `hardware/i2c.h`
+     - `ssd1306.h`
+     - `font.h`
+     - `pico/stdlib.h`
+     - `hardware/pio.h`
+     - `hardware/adc.h`
+     - `ws2812.pio.h`
 
-## Bibliotecas Utilizadas
+### Passos para Execução
+1. Conecte os componentes ao Raspberry Pi Pico conforme as definições de pinos no código.
+2. Compile o código usando o Pico SDK.
+3. Carregue o código no Raspberry Pi Pico.
+4. O sistema iniciará automaticamente e começará a monitorar a vibração simulada pelo joystick.
 
-- `ssd1306`: Biblioteca para controle do display OLED SSD1306 via I2C.
-- `ws2812`: Biblioteca para controle da matriz de LEDs WS2812 via PIO.
-- `pico/stdlib`: Biblioteca padrão do Raspberry Pi Pico.
+### Pinagem
+| Componente       | Pino no Raspberry Pi Pico |
+|------------------|---------------------------|
+| Display OLED SDA | GPIO 14                   |
+| Display OLED SCL | GPIO 15                   |
+| Joystick VRX     | GPIO 27 (ADC1)            |
+| Joystick VRY     | GPIO 26 (ADC0)            |
+| LED Verde        | GPIO 11                   |
+| LED Vermelho     | GPIO 13                   |
+| LED Azul         | GPIO 12                   |
+| Buzzer A         | GPIO 21                   |
+| Buzzer B         | GPIO 10                   |
+| Botão A          | GPIO 5                    |
+| Botão B          | GPIO 6                    |
+| Matriz de LEDs   | GPIO 7                    |
 
-## Autor:
+## Testes Realizados
+- **Leitura do Joystick**: Verificação da precisão dos valores lidos pelo ADC.
+- **Cálculo da Vibração**: Validação do cálculo da magnitude do vetor.
+- **Exibição no OLED**: Teste de exibição de mensagens e valores no display.
+- **Controle de LEDs e Buzzer**: Verificação do acionamento correto dos LEDs e buzzer.
+- **Reinício do Sistema**: Teste de reinício manual e exibição de mensagens de parada.
 
-Matheus Santos Souza
+## Melhorias Futuras
+1. **Calibração do Sensor**: Implementar uma rotina de calibração para maior precisão.
+2. **Log de Dados**: Armazenar dados de vibração em um cartão SD para análise posterior.
+3. **Interface Gráfica**: Melhorar a interface do display com gráficos ou indicadores visuais.
+4. **Comunicação Remota**: Adicionar suporte para Wi-Fi ou Bluetooth para monitoramento remoto.
 
-## Código Base:
+## Contribuição
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
-Professor Wilton Lacerda Git Hub --> [GitHubProfWilton](https://github.com/wiltonlacerda/EmbarcaTechU4C6.git)
-
-## Link do Vídeo:
-
-[Video de apresentação e demonstração](https://youtu.be/yX6q0HH_Tis)
-
-
+## Licença
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
