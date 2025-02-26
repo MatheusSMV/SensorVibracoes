@@ -69,7 +69,7 @@ O código está organizado da seguinte forma:
      - `ws2812.pio.h`
 
 ### Passos para Execução
-1. Conecte os componentes ao Raspberry Pi Pico conforme as definições de pinos no código.
+1. Conecte os componentes ao Raspberry Pi Pico W conforme as definições de pinos no código. **BitDogLab**
 2. Compile o código usando o Pico SDK.
 3. Carregue o código no Raspberry Pi Pico.
 4. O sistema iniciará automaticamente e começará a monitorar a vibração simulada pelo joystick.
