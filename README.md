@@ -109,8 +109,8 @@ O código está organizado da seguinte forma:
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
 ## Códigos de Inspiração e de Fornecimento de Matéria Prima
-Professor Wilton Lacerda Git Hub --> [GitHubProfWilton](https://github.com/wiltonlacerda)
-Professor Ricardo Menezes Prates Git Hub --> [GitHub](https://github.com/rmprates84/pwm_duty_cycle.git)
+- Professor Wilton Lacerda Git Hub --> [GitHubProfWilton](https://github.com/wiltonlacerda)
+- Professor Ricardo Menezes Prates Git Hub --> [GitHubProfRicardo](https://github.com/rmprates84/pwm_duty_cycle.git)
 
 ## Vídeo Apresentativo e Explicativo
 
