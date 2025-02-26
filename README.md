@@ -10,6 +10,7 @@ Este projeto implementa um sistema de monitoramento de vibração utilizando um 
 - **Feedback Sonoro**: Buzzer
 - **Matriz de LEDs**: WS2812 (5x5)
 - **Botões**: Dois botões para controle do sistema (A e B)
+- *BitDogLab**
 
 ## Funcionalidades
 1. **Leitura do Joystick**:
